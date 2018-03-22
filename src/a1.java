@@ -67,8 +67,26 @@ class calculate{
             num2[t]=stringStack.peek();
             stringStack.pop();
         }
-        for(int i=1;i<=t;i++) System.out.println(num2[i]);
-
+//        for(int i=1;i<=t;i++) System.out.println(num2[i]);
+        for(int i=1;i<=t;i++){
+            if(check(num2[i])<0) doubleStack.push(Double.parseDouble(num2[i]));
+            if(check(num2[i])>0){
+                double x=doubleStack.peek();
+                doubleStack.pop();
+                double y=doubleStack.peek();
+                doubleStack.pop();
+                double z=calc(y,num2[i],x);
+                doubleStack.push(z);
+            }
+        }
+        System.out.println(doubleStack.peek());
+    }
+    private double calc(double x,String ch,double y){
+        if(ch.equals("+")) return x+y;
+        if(ch.equals("-")) return x-y;
+        if(ch.equals("*")) return x*y;
+        if(ch.equals("/")) return x/y;
+        return -1;
     }
     private int check(String ch){
         if(ch.equals("AC")) return 3;
